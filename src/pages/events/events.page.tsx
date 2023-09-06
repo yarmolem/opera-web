@@ -107,7 +107,7 @@ const EventsPage = () => {
 
   return (
     <div className="flex flex-col">
-      <Header className="bg-[#DD2926]" />
+      <Header color="red" />
 
       <div className="w-full max-w-[1168px] mx-auto grid grid-cols-6 gap-x-[26px] mb-[85px]">
         {CATEGORIES.map((key) => (

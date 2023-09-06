@@ -14,7 +14,7 @@ import Footer from '@/components/footer'
 const EventByIdPage = () => {
   return (
     <div className="flex flex-col">
-      <Header className="bg-[#DD2926]" />
+      <Header color="red" />
 
       <div className="w-full max-w-[1152px] mx-auto pb-[140px]">
         <h2 className="text-2xl text-[#8AA09F] mb-6">

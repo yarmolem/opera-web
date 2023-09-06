@@ -1,12 +1,14 @@
+import clsx from 'clsx'
 import { Link } from 'react-router-dom'
 import { Facebook, Linkedin, Twitter } from 'lucide-react'
 
 import LOGO_BLACK from '@/assets/images/logo-black.png'
-import HEADER_LOGO from '@/assets/images/header-logo.png'
-import clsx from 'clsx'
+import HEADER_LOGO_RED from '@/assets/images/header-logo.png'
+import HEADER_LOGO_PINK from '@/assets/images/header-logo-pink.png'
 
 type Props = {
   className?: string
+  color?: 'red' | 'pink'
 }
 
 const Header = (props: Props) => {
@@ -15,7 +17,11 @@ const Header = (props: Props) => {
       <header
         className={clsx(
           'h-[90px] w-full flex items-center justify-between pl-[52px]',
-          props.className
+          props.className,
+          {
+            'bg-[#DD2926]': props.color === 'red',
+            'bg-[#D986BA]': props.color === 'pink'
+          }
         )}
       >
         <img src={LOGO_BLACK} alt="Logo opera" className="w-[178px] h-[52px]" />
@@ -34,7 +40,10 @@ const Header = (props: Props) => {
           </div>
 
           <div className="bg-[#a00604]">
-            <img src={HEADER_LOGO} alt="Logo opera" />
+            <img
+              src={props.color === 'red' ? HEADER_LOGO_RED : HEADER_LOGO_PINK}
+              alt="Logo opera"
+            />
           </div>
         </div>
       </header>
@@ -50,7 +59,7 @@ const Header = (props: Props) => {
             <Link to="/">NOSOTROS</Link>
           </li>
           <li>
-            <Link to="/">CONTENIDO</Link>
+            <Link to="/news">CONTENIDO</Link>
           </li>
           <li>
             <Link to="/">ALIADOS</Link>
