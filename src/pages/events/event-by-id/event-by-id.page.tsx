@@ -1,35 +1,20 @@
-import { Link } from 'react-router-dom'
-import { Facebook, Linkedin, Twitter } from 'lucide-react'
+import Header from '@/components/header'
 
-import LOGO_BLACK from '@/assets/images/logo-black.png'
-import LOGO_WHITE from '@/assets/images/logo-white.png'
-import HEADER_LOGO from '@/assets/images/header-logo.png'
+import IMAGE_1 from '@/assets/images/events-by-id/1.png'
+import IMAGE_2 from '@/assets/images/events-by-id/2.png'
+import IMAGE_3 from '@/assets/images/events-by-id/3.png'
+import IMAGE_4 from '@/assets/images/events-by-id/4.png'
+import IMAGE_5 from '@/assets/images/events-by-id/5.png'
+import IMAGE_6 from '@/assets/images/events-by-id/6.png'
+import IMAGE_7 from '@/assets/images/events-by-id/7.png'
+
 import VIAJES_LOGO_OPERA from '@/assets/images/events/viajes-logo-opera.png'
+import Footer from '@/components/footer'
 
 const EventByIdPage = () => {
   return (
     <div className="flex flex-col">
-      <header className="h-[90px] w-full bg-[#DD2926] flex items-center justify-between pl-[52px] mb-[68px]">
-        <img src={LOGO_BLACK} alt="Logo opera" className="w-[178px] h-[52px]" />
-
-        <div className="h-full flex items-center">
-          <div className="flex items-center gap-x-4 pr-[48px] border-r-2 h-[95%] border-r-white">
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Facebook size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Twitter size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Linkedin size={18} fill="black" stroke="transparent" />
-            </button>
-          </div>
-
-          <div className="bg-[#a00604]">
-            <img src={HEADER_LOGO} alt="Logo opera" />
-          </div>
-        </div>
-      </header>
+      <Header className="bg-[#DD2926]" />
 
       <div className="w-full max-w-[1152px] mx-auto pb-[140px]">
         <h2 className="text-2xl text-[#8AA09F] mb-6">
@@ -39,14 +24,44 @@ const EventByIdPage = () => {
         <h3 className="text-[#8AA09F] text-4xl mb-6">VIAJE A ROMA</h3>
 
         <div className="grid grid-cols-[minmax(0px,_75px)_minmax(0px,_552px)_minmax(0px,_443px)] gap-x-3">
-          <img src={VIAJES_LOGO_OPERA} alt="Logo opera" />
+          <div className="w-full h-[200px] relative">
+            <img
+              src={VIAJES_LOGO_OPERA}
+              alt="Logo opera"
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
 
           <div>
             <div className="grid grid-cols-3 grid-rows-[minmax(0px,_200px)_minmax(0px,_121px)] gap-3 mb-6">
-              <div className="col-span-3 bg-blue-300"></div>
-              <div className="bg-blue-300"></div>
-              <div className="bg-blue-300"></div>
-              <div className="bg-blue-300"></div>
+              <div className="col-span-3 relative w-full h-full">
+                <img
+                  src={IMAGE_1}
+                  alt="Image 1"
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+              <div className="relative w-full h-full">
+                <img
+                  src={IMAGE_2}
+                  alt="Image 1"
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+              <div className="relative w-full h-full">
+                <img
+                  src={IMAGE_3}
+                  alt="Image 1"
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+              <div className="relative w-full h-full">
+                <img
+                  src={IMAGE_4}
+                  alt="Image 1"
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
             </div>
 
             <div className="flex flex-col gap-y-4">
@@ -86,9 +101,27 @@ const EventByIdPage = () => {
               </div>
 
               <div className="grid grid-cols-[repeat(3,_minmax(0px,_160px))] auto-rows-[105px] justify-center gap-3">
-                <div className="w-full h-full bg-blue-300"></div>
-                <div className="w-full h-full bg-blue-300"></div>
-                <div className="w-full h-full bg-blue-300"></div>
+                <div className="relative w-full h-full">
+                  <img
+                    src={IMAGE_5}
+                    alt="Image 1"
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
+                <div className="relative w-full h-full">
+                  <img
+                    src={IMAGE_6}
+                    alt="Image 1"
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
+                <div className="relative w-full h-full">
+                  <img
+                    src={IMAGE_7}
+                    alt="Image 1"
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
               </div>
 
               <div>
@@ -127,55 +160,40 @@ const EventByIdPage = () => {
             </div>
           </div>
 
-          <div className="p-6">
+          <div className="p-6 border border-[#BCD8D5] h-max">
             <p className="mb-8 text-2xl font-medium text-[#8AA09F]">
               CONTÁCTANOS
             </p>
-            <div>
+            <div className="flex flex-col gap-y-2">
               <input
                 type="text"
                 placeholder="Nombre"
                 className="w-full py-3 px-4 border border-black"
               />
+              <input
+                type="text"
+                placeholder="Teléfono"
+                className="w-full py-3 px-4 border border-black"
+              />
+              <input
+                type="text"
+                placeholder="Correo electrónico"
+                className="w-full py-3 px-4 border border-black"
+              />
+              <textarea
+                placeholder="Mensaje"
+                className="w-full py-3 px-4 border border-black h-[176px]"
+              />
+
+              <button className="w-full h-[42px] grid place-items-center bg-black text-white">
+                ENVIAR
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <footer>
-        <div className="w-full h-[146px] pl-[48px] pr-[96px] flex justify-between items-center bg-black">
-          <div className="flex items-center gap-x-4">
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Facebook size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Twitter size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Linkedin size={18} fill="black" stroke="transparent" />
-            </button>
-          </div>
-
-          <img src={LOGO_WHITE} alt="Logo opera" />
-        </div>
-
-        <div className="h-[48px] w-full bg-[#DD2926] pl-[48px]">
-          <ul className="flex items-center gap-x-[18px] h-full">
-            <li className="uppercase text-white">
-              <Link to="/">AVISO DE PRIVACIDAD</Link>
-            </li>
-            <li className="uppercase text-white">
-              <Link to="/">TÉRMINOS Y CONDICIONES</Link>
-            </li>
-            <li className="uppercase text-white">
-              <Link to="/">faq´s</Link>
-            </li>
-            <li className="uppercase text-white">
-              <Link to="/">CONTACTO</Link>
-            </li>
-          </ul>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

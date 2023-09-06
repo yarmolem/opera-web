@@ -1,7 +1,9 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Twitter, Linkedin, Facebook } from 'lucide-react'
+
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 import EVENT_ONE from '@/assets/images/events/1.png'
 import EVENT_TWO from '@/assets/images/events/2.png'
@@ -12,10 +14,6 @@ import EVENT_SEVEN from '@/assets/images/events/7.png'
 import CASA_LOGO_OPERA from '@/assets/images/events/casa-logo-opera.png'
 import EVENT_LOGO_OPERA from '@/assets/images/events/event-logo-opera.png'
 import VIAJES_LOGO_OPERA from '@/assets/images/events/viajes-logo-opera.png'
-
-import LOGO_BLACK from '@/assets/images/logo-black.png'
-import LOGO_WHITE from '@/assets/images/logo-white.png'
-import HEADER_LOGO from '@/assets/images/header-logo.png'
 
 const DESCRIPTION = `
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
@@ -109,50 +107,7 @@ const EventsPage = () => {
 
   return (
     <div className="flex flex-col">
-      <header className="h-[90px] w-full bg-[#DD2926] flex items-center justify-between pl-[52px]">
-        <img src={LOGO_BLACK} alt="Logo opera" className="w-[178px] h-[52px]" />
-
-        <div className="h-full flex items-center">
-          <div className="flex items-center gap-x-4 pr-[48px] border-r-2 h-[95%] border-r-white">
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Facebook size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Twitter size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Linkedin size={18} fill="black" stroke="transparent" />
-            </button>
-          </div>
-
-          <div className="bg-[#a00604]">
-            <img src={HEADER_LOGO} alt="Logo opera" />
-          </div>
-        </div>
-      </header>
-
-      <nav className="h-[43px] w-full bg-black mb-[55px]">
-        <ul className="flex items-center h-full justify-center gap-x-[18px] text-white">
-          <li>
-            <Link to="/">EVENTOS</Link>
-          </li>
-          <li>
-            <Link to="/">MEMBRESÍAS</Link>
-          </li>
-          <li>
-            <Link to="/">NOSOTROS</Link>
-          </li>
-          <li>
-            <Link to="/">CONTENIDO</Link>
-          </li>
-          <li>
-            <Link to="/">ALIADOS</Link>
-          </li>
-          <li>
-            <Link to="/">CONTACTO</Link>
-          </li>
-        </ul>
-      </nav>
+      <Header className="bg-[#DD2926]" />
 
       <div className="w-full max-w-[1168px] mx-auto grid grid-cols-6 gap-x-[26px] mb-[85px]">
         {CATEGORIES.map((key) => (
@@ -244,40 +199,7 @@ const EventsPage = () => {
         </div>
       </div>
 
-      <footer>
-        <div className="w-full h-[146px] pl-[48px] pr-[96px] flex justify-between items-center bg-black">
-          <div className="flex items-center gap-x-4">
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Facebook size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Twitter size={18} fill="black" stroke="transparent" />
-            </button>
-            <button className="bg-white rounded-full w-8 h-8 grid place-items-center">
-              <Linkedin size={18} fill="black" stroke="transparent" />
-            </button>
-          </div>
-
-          <img src={LOGO_WHITE} alt="Logo opera" />
-        </div>
-
-        <div className="h-[48px] w-full bg-[#DD2926] pl-[48px]">
-          <ul className="flex items-center gap-x-[18px] h-full">
-            <li className="uppercase text-white">
-              <Link to="/">AVISO DE PRIVACIDAD</Link>
-            </li>
-            <li className="uppercase text-white">
-              <Link to="/">TÉRMINOS Y CONDICIONES</Link>
-            </li>
-            <li className="uppercase text-white">
-              <Link to="/">faq´s</Link>
-            </li>
-            <li className="uppercase text-white">
-              <Link to="/">CONTACTO</Link>
-            </li>
-          </ul>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
