@@ -40,7 +40,7 @@ const Footer = (props: { className?: string }) => {
             <Link to="/faqs">faq´s</Link>
           </li>
           <li className="uppercase text-white">
-            <Link to="/">CONTACTO</Link>
+            <Link to="/contact">CONTACTO</Link>
           </li>
         </ul>
       </div>

@@ -1,14 +1,14 @@
+import {
+  Accordion,
+  AccordionItem,
+  AccordionContent,
+  AccordionTrigger
+} from '@/components/accordion'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 
 import FAQS_HEADER_LOGO from '@/assets/images/faqs/faqs_header_logo.png'
 import FAQS_HEADER_QUESTION from '@/assets/images/faqs/faqs_header_question.png'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/accordion'
 
 const FaqsPage = () => {
   return (

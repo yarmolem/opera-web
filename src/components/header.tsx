@@ -55,7 +55,7 @@ const Header = (props: Props) => {
             <Link to="/memberships">MEMBRESÍAS</Link>
           </li>
           <li>
-            <Link to="/">NOSOTROS</Link>
+            <Link to="/about">NOSOTROS</Link>
           </li>
           <li>
             <Link to="/news">CONTENIDO</Link>
