@@ -46,13 +46,13 @@ const Header = (props: Props) => {
           </div>
         </div>
       </header>
-      <nav className="h-[43px] w-full bg-black mb-[68px]">
+      <nav className="h-[43px] w-full bg-black">
         <ul className="flex items-center h-full justify-center gap-x-[18px] text-white">
           <li>
             <Link to="/">EVENTOS</Link>
           </li>
           <li>
-            <Link to="/">MEMBRESÍAS</Link>
+            <Link to="/memberships">MEMBRESÍAS</Link>
           </li>
           <li>
             <Link to="/">NOSOTROS</Link>

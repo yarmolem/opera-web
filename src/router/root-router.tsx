@@ -5,6 +5,7 @@ import EventsPage from '@/pages/events/events.page'
 import ContactPage from '@/pages/contact/contact.page'
 import NewsByIdPage from '@/pages/news/news-by-id/news-by-id.page'
 import EventByIdPage from '@/pages/events/event-by-id/event-by-id.page'
+import MembershipsPage from '@/pages/memberships/memberships.page'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: '/contact',
     element: <ContactPage />
+  },
+  {
+    path: '/memberships',
+    element: <MembershipsPage />
   }
 ])
 
