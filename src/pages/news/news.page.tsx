@@ -23,7 +23,7 @@ const NewsPage = () => {
 
   return (
     <div className="flex flex-col">
-      <Header color="pink" />
+      <Header color="pink" className="mb-[53px]" />
 
       <div className="w-full max-w-[1168px] mx-auto grid grid-cols-5 gap-x-[26px] mb-[50px]">
         {CATEGORIES.map((key) => (

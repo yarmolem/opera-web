@@ -6,6 +6,7 @@ import ContactPage from '@/pages/contact/contact.page'
 import NewsByIdPage from '@/pages/news/news-by-id/news-by-id.page'
 import EventByIdPage from '@/pages/events/event-by-id/event-by-id.page'
 import MembershipsPage from '@/pages/memberships/memberships.page'
+import FaqsPage from '@/pages/faqs/faqs.page'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: '/memberships',
     element: <MembershipsPage />
+  },
+  {
+    path: '/faqs',
+    element: <FaqsPage />
   }
 ])
 

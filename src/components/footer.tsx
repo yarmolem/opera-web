@@ -37,7 +37,7 @@ const Footer = (props: { className?: string }) => {
             <Link to="/">TÉRMINOS Y CONDICIONES</Link>
           </li>
           <li className="uppercase text-white">
-            <Link to="/">faq´s</Link>
+            <Link to="/faqs">faq´s</Link>
           </li>
           <li className="uppercase text-white">
             <Link to="/">CONTACTO</Link>
