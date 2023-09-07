@@ -13,11 +13,10 @@ type Props = {
 
 const Header = (props: Props) => {
   return (
-    <>
+    <div className={props.className}>
       <header
         className={clsx(
           'h-[90px] w-full flex items-center justify-between pl-[52px]',
-          props.className,
           {
             'bg-[#DD2926]': props.color === 'red',
             'bg-[#D986BA]': props.color === 'pink'
@@ -39,12 +38,10 @@ const Header = (props: Props) => {
             </button>
           </div>
 
-          <div className="bg-[#a00604]">
-            <img
-              src={props.color === 'red' ? HEADER_LOGO_RED : HEADER_LOGO_PINK}
-              alt="Logo opera"
-            />
-          </div>
+          <img
+            src={props.color === 'red' ? HEADER_LOGO_RED : HEADER_LOGO_PINK}
+            alt="Logo opera"
+          />
         </div>
       </header>
       <nav className="h-[43px] w-full bg-black mb-[68px]">
@@ -69,7 +66,7 @@ const Header = (props: Props) => {
           </li>
         </ul>
       </nav>
-    </>
+    </div>
   )
 }
 

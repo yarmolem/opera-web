@@ -18,7 +18,7 @@ const CATEGORIES = [
 ] as const
 
 const NewsPage = () => {
-  const [activeKey, setActiveKey] = useState('TODOS')
+  const [activeKey, setActiveKey] = useState('NOTICIAS')
 
   return (
     <div className="flex flex-col">
@@ -52,8 +52,8 @@ const NewsPage = () => {
 
             <div className="h-[464px] w-full relative bg-red-100">
               <img
-                src={IMAGE_1}
                 alt=""
+                src={IMAGE_1}
                 className="absolute w-full h-full inset-0"
               />
             </div>
