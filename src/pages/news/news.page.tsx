@@ -8,6 +8,7 @@ import IMAGE_1 from '@/assets/images/news/1.png'
 import IMAGE_2 from '@/assets/images/news/2.png'
 import IMAGE_3 from '@/assets/images/news/3.png'
 import CARD_LOGO from '@/assets/images/news/card-logo.png'
+import { Link } from 'react-router-dom'
 
 const CATEGORIES = [
   'NOTICIAS',
@@ -95,9 +96,11 @@ const NewsPage = () => {
                     ÓPERA
                   </span>
 
-                  <p className="text-[#D986BA] tracking-[4px] text-xl uppercase leading-6">
-                    Musicaroo publica una Guía de teoría musical
-                  </p>
+                  <Link to="/news/1">
+                    <p className="text-[#D986BA] tracking-[4px] text-xl uppercase leading-6">
+                      Musicaroo publica una Guía de teoría musical
+                    </p>
+                  </Link>
 
                   <p className="mt-auto text-[#444]">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
