@@ -96,10 +96,11 @@ const NewsPage = () => {
                     ÓPERA
                   </span>
 
-                  <Link to="/news/1">
-                    <p className="text-[#D986BA] tracking-[4px] text-xl uppercase leading-6">
-                      Musicaroo publica una Guía de teoría musical
-                    </p>
+                  <Link
+                    to="/news/1"
+                    className="text-[#D986BA] tracking-[4px] text-xl uppercase leading-6 hover:underline"
+                  >
+                    Musicaroo publica una Guía de teoría musical
                   </Link>
 
                   <p className="mt-auto text-[#444]">

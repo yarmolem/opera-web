@@ -160,8 +160,12 @@ const NewsByIdPage = () => {
           </p>
 
           <div className="flex items-center">
-            <input type="text" />
-            <button className="w-[173px] h-[42px] text-white">
+            <input
+              type="text"
+              placeholder="Ingresa tu correo..."
+              className="h-[42px] w-[355px] bg-white px-4 outline-none"
+            />
+            <button className="w-[173px] h-[42px] text-white bg-black">
               SUSCRIBIRSE
             </button>
           </div>

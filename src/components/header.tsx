@@ -38,10 +38,12 @@ const Header = (props: Props) => {
             </button>
           </div>
 
-          <img
-            src={props.color === 'red' ? HEADER_LOGO_RED : HEADER_LOGO_PINK}
-            alt="Logo opera"
-          />
+          <div className="bg-[#a00604]">
+            <img
+              src={props.color === 'red' ? HEADER_LOGO_RED : HEADER_LOGO_PINK}
+              alt="Logo opera"
+            />
+          </div>
         </div>
       </header>
       <nav className="h-[43px] w-full bg-black mb-[68px]">
@@ -62,7 +64,7 @@ const Header = (props: Props) => {
             <Link to="/">ALIADOS</Link>
           </li>
           <li>
-            <Link to="/">CONTACTO</Link>
+            <Link to="/contact">CONTACTO</Link>
           </li>
         </ul>
       </nav>
