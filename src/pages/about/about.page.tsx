@@ -9,8 +9,6 @@ import ABOUT_HEADER_LOGO_BLACK from '@/assets/images/about/about-header-logo-bla
 const AboutPage = () => {
   return (
     <div>
-      <h1 className="sr-only">¿Quienes somos?</h1>
-
       <Header color="red" />
 
       <div className="w-full bg-black mb-10">
