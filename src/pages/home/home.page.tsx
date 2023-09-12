@@ -6,9 +6,9 @@ import Header from '@/components/header'
 import IMAGE_1 from '@/assets/images/home/1.png'
 import IMAGE_2 from '@/assets/images/home/2.png'
 import IMAGE_3 from '@/assets/images/home/3.jpeg'
-/* import IMAGE_4 from '@/assets/images/home/4.jpeg'
+import IMAGE_4 from '@/assets/images/home/4.jpeg'
 import IMAGE_5 from '@/assets/images/home/5.jpeg'
-import IMAGE_6 from '@/assets/images/home/6.jpeg' */
+import IMAGE_6 from '@/assets/images/home/6.jpeg'
 import IMAGE_7 from '@/assets/images/home/7.jpeg'
 import IMAGE_12 from '@/assets/images/home/12.jpeg'
 import LOGO_RED from '@/assets/images/home/logo-red.png'
@@ -20,9 +20,9 @@ import { getAllPost } from '@/api/post'
 import { getCategoryById } from '@/api/category'
 
 import type { Post } from '@/interface/post'
-import type { Event } from '@/interface/event'
 import type { Category } from '@/interface/category'
-import { getAllEvent } from '@/api/events'
+//import type { Event } from '@/interface/event'
+//import { getAllEvent } from '@/api/events'
 
 const PostSection = () => {
   const [posts, setPosts] = useState<(Post & { category: Category | null })[]>(
@@ -105,7 +105,7 @@ const PostSection = () => {
 }
 
 const EventSection = () => {
-  const [events, setEvents] = useState<Event[]>([])
+  /*   const [_events, setEvents] = useState<Event[]>([])
 
   useEffect(() => {
     getAllEvent({ params: { page: 1, per_page: 4 } })
@@ -115,11 +115,11 @@ const EventSection = () => {
       .catch((err) => {
         console.log('[GET_ALL_EVENTS]: ', err)
       })
-  }, [])
+  }, []) */
 
   return (
     <div className="grid grid-cols-3 gap-x-[22px] gap-y-5 auto-rows-[minmax(0px,_442px)]">
-      {events.map((event, i) => {
+      {/*      {events.map((event, i) => {
         const isBig = i === 0 || i === 3
 
         return (
@@ -176,9 +176,9 @@ const EventSection = () => {
             </div>
           </div>
         )
-      })}
+      })} */}
 
-      {/*       <div className="w-full h-full col-span-2 relative flex flex-col justify-end">
+      <div className="w-full h-full col-span-2 relative flex flex-col justify-end">
         <img
           alt=""
           src={IMAGE_3}
@@ -362,7 +362,7 @@ const EventSection = () => {
             <p className="font-bold">$2,500</p>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

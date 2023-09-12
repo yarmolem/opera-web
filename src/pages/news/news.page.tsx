@@ -1,20 +1,19 @@
 import clsx from 'clsx'
+import dayjs from 'dayjs'
+import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 
-import CARD_LOGO from '@/assets/images/news/card-logo.png'
-import { Link } from 'react-router-dom'
-import { Post } from '@/interface/post'
-import { Category } from '@/interface/category'
 import { getAllPost } from '@/api/post'
-import { getCategoryById } from '@/api/category'
-import dayjs from 'dayjs'
-import { User } from '@/interface/user'
 import { getUserById } from '@/api/users'
 
-type Posts = (Post & { category: Category | null; user: User | null })[]
+import type { Post } from '@/interface/post'
+import type { User } from '@/interface/user'
+import CARD_LOGO from '@/assets/images/news/card-logo.png'
+
+type Posts = (Post & { user: User | null })[]
 
 const CATEGORIES = [
   { id: 62, title: 'NOTICIA' },
@@ -34,23 +33,23 @@ const NewsPage = () => {
     getAllPost({ params: { page: 1, per_page: 11, categories: category.id } })
       .then(async (res) => {
         const _post: Posts = []
+        const users: Record<number, User | null> = {}
 
         for (const post of res.data ?? []) {
           if (post.categories.length === 0) continue
 
           try {
-            const userId = post.author
-            const categoryId = post.categories[0]
-            const user = await getUserById(userId).then(
-              (res) => res.data ?? null
-            )
-            const category = await getCategoryById(categoryId).then(
-              (res) => res.data ?? null
-            )
+            if (!users[post.author]) {
+              const userId = post.author
+              const res = await getUserById(userId)
+              const user = res.data ?? null
 
-            _post.push({ ...post, category, user })
+              users[userId] = user
+            }
+
+            _post.push({ ...post, user: users[post.author] })
           } catch (error) {
-            console.log('[GET_CATEGORY_BY_ID]: ', error)
+            console.log('[GET_USER_BY_ID]: ', error)
           }
         }
 
@@ -106,7 +105,7 @@ const NewsPage = () => {
 
               <div className="z-10 pl-6 pb-[105px]">
                 <div className="bg-[#64ADEC] p-1 text-white font-bold text-xs mb-4 w-max uppercase">
-                  {firstPost?.category?.name}
+                  {category.title}
                 </div>
 
                 <div className="w-full max-w-md">
@@ -133,7 +132,7 @@ const NewsPage = () => {
 
               <div className="z-10 pl-6 pb-[105px]">
                 <div className="bg-[#64ADEC] p-1 text-white font-bold text-xs mb-4 w-max uppercase">
-                  {firstPost?.category?.name}
+                  {category.title}
                 </div>
 
                 <div className="w-full max-w-md">
@@ -172,7 +171,7 @@ const NewsPage = () => {
                 </div>
 
                 <span className="h-[26px] flex items-center px-4 bg-[#994878] w-max text-white font-bold text-sm uppercase">
-                  {post?.category?.name ?? 'Sin categoria'}
+                  {category.title ?? 'Sin categoria'}
                 </span>
 
                 <Link
