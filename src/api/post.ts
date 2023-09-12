@@ -7,6 +7,7 @@ interface GetAllPostProps {
     page?: number
     per_page?: number
     search?: string
+    categories?: number
   }
 }
 

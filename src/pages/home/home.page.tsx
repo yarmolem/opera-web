@@ -1,25 +1,30 @@
+import { useEffect, useState } from 'react'
+
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 
 import IMAGE_1 from '@/assets/images/home/1.png'
 import IMAGE_2 from '@/assets/images/home/2.png'
 import IMAGE_3 from '@/assets/images/home/3.jpeg'
-import IMAGE_4 from '@/assets/images/home/4.jpeg'
+/* import IMAGE_4 from '@/assets/images/home/4.jpeg'
 import IMAGE_5 from '@/assets/images/home/5.jpeg'
-import IMAGE_6 from '@/assets/images/home/6.jpeg'
+import IMAGE_6 from '@/assets/images/home/6.jpeg' */
 import IMAGE_7 from '@/assets/images/home/7.jpeg'
 import IMAGE_12 from '@/assets/images/home/12.jpeg'
 import LOGO_RED from '@/assets/images/home/logo-red.png'
 import LOGO_BLACK from '@/assets/images/logo-black.png'
 import LOGO_BLEND_RED from '@/assets/images/home/logo-blend-red.png'
-import { useEffect, useState } from 'react'
-import { Post } from '@/interface/post'
-import { getAllPost } from '@/api/post'
+
 import { cn } from '@/lib/utils'
-import { Category } from '@/interface/category'
+import { getAllPost } from '@/api/post'
 import { getCategoryById } from '@/api/category'
 
-const Events = () => {
+import type { Post } from '@/interface/post'
+import type { Event } from '@/interface/event'
+import type { Category } from '@/interface/category'
+import { getAllEvent } from '@/api/events'
+
+const PostSection = () => {
   const [posts, setPosts] = useState<(Post & { category: Category | null })[]>(
     []
   )
@@ -32,11 +37,15 @@ const Events = () => {
         for (const post of res.data ?? []) {
           if (post.categories.length === 0) continue
 
-          const categoryId = post.categories[0]
-          const res = await getCategoryById(categoryId)
-          const category = res.data ?? null
+          try {
+            const categoryId = post.categories[0]
+            const res = await getCategoryById(categoryId)
+            const category = res.data ?? null
 
-          _post.push({ ...post, category })
+            _post.push({ ...post, category })
+          } catch (error) {
+            console.log('[GET_CATEGORY_BY_ID]: ', error)
+          }
         }
 
         setPosts(_post)
@@ -56,6 +65,8 @@ const Events = () => {
             i === 0 ? 'row-span-2' : ''
           )}
         >
+          <div className="absolute inset-0 w-full h-full from-black to-transparent bg-gradient-to-t z-10" />
+
           <img
             loading="lazy"
             alt={post.yoast_head_json.og_title}
@@ -89,6 +100,269 @@ const Events = () => {
           </div>
         </div>
       ))}
+    </div>
+  )
+}
+
+const EventSection = () => {
+  const [events, setEvents] = useState<Event[]>([])
+
+  useEffect(() => {
+    getAllEvent({ params: { page: 1, per_page: 4 } })
+      .then(async (res) => {
+        setEvents(res.data ?? [])
+      })
+      .catch((err) => {
+        console.log('[GET_ALL_EVENTS]: ', err)
+      })
+  }, [])
+
+  return (
+    <div className="grid grid-cols-3 gap-x-[22px] gap-y-5 auto-rows-[minmax(0px,_442px)]">
+      {events.map((event, i) => {
+        const isBig = i === 0 || i === 3
+
+        return (
+          <div
+            key={event.id}
+            className={cn(
+              'w-full h-full relative flex flex-col justify-end',
+              isBig ? 'col-span-2' : ''
+            )}
+          >
+            <img
+              alt=""
+              src={IMAGE_3}
+              className="absolute inset-0 w-full h-full object-cover z-[-1]"
+            />
+
+            <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
+              <div className="bg-[#A00603] text-[#DD2926] row-span-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="99"
+                  height="172"
+                  viewBox="0 0 99 172"
+                  fill="none"
+                >
+                  <g clipPath="url(#clip0_851_7869)">
+                    <path
+                      d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
+                      fill="currentColor"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_851_7869">
+                      <rect
+                        width="178"
+                        height="178"
+                        fill="white"
+                        transform="translate(-22)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+              <div className="bg-[#CD1815] flex items-center pl-2">
+                <p className="text-white font-medium text-xl tracking-[6px]">
+                  DANZA CONTEMPORÁNEA
+                </p>
+              </div>
+              <div className="bg-black p-4 text-white text-xl uppercase">
+                <p className="font-bold">Los miércoles 23 y 24 de junio</p>
+                <p>TEATRO CD MX</p>
+                <p className="font-bold">$2,500</p>
+              </div>
+            </div>
+          </div>
+        )
+      })}
+
+      {/*       <div className="w-full h-full col-span-2 relative flex flex-col justify-end">
+        <img
+          alt=""
+          src={IMAGE_3}
+          className="absolute inset-0 w-full h-full object-cover z-[-1]"
+        />
+
+        <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
+          <div className="bg-[#A00603] text-[#DD2926] row-span-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="99"
+              height="172"
+              viewBox="0 0 99 172"
+              fill="none"
+            >
+              <g clipPath="url(#clip0_851_7869)">
+                <path
+                  d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
+                  fill="currentColor"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_851_7869">
+                  <rect
+                    width="178"
+                    height="178"
+                    fill="white"
+                    transform="translate(-22)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div className="bg-[#CD1815] flex items-center pl-2">
+            <p className="text-white font-medium text-xl tracking-[6px]">
+              DANZA CONTEMPORÁNEA
+            </p>
+          </div>
+          <div className="bg-black p-4 text-white text-xl uppercase">
+            <p className="font-bold">Los miércoles 23 y 24 de junio</p>
+            <p>TEATRO CD MX</p>
+            <p className="font-bold">$2,500</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full h-full relative flex flex-col justify-end">
+        <img
+          alt=""
+          src={IMAGE_4}
+          className="absolute inset-0 w-full h-full object-cover z-[-1]"
+        />
+
+        <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
+          <div className="bg-[#BCD8D5] text-[#8AA09F] row-span-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="99"
+              height="172"
+              viewBox="0 0 99 172"
+              fill="none"
+            >
+              <g clipPath="url(#clip0_851_7869)">
+                <path
+                  d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
+                  fill="currentColor"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_851_7869">
+                  <rect
+                    width="178"
+                    height="178"
+                    fill="white"
+                    transform="translate(-22)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div className="bg-[#BCD8D5] flex items-center justify-center">
+            <p className="font-medium text-xl tracking-[6px]">VIAJE A ROMA</p>
+          </div>
+          <div className="bg-black p-4 text-white text-xl uppercase">
+            <p className="font-bold">Los miércoles 23 y 24 de junio</p>
+            <p>TEATRO CD MX</p>
+            <p className="font-bold">$2,500</p>
+          </div>
+        </div>
+      </div>
+
+      <div className=" w-full h-full relative flex flex-col justify-end">
+        <img
+          alt=""
+          src={IMAGE_5}
+          className="absolute inset-0 w-full h-full object-cover z-[-1]"
+        />
+
+        <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
+          <div className="bg-[#DD3633] text-[#B9001D] row-span-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="99"
+              height="172"
+              viewBox="0 0 99 172"
+              fill="none"
+            >
+              <g clipPath="url(#clip0_851_7869)">
+                <path
+                  d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
+                  fill="currentColor"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_851_7869">
+                  <rect
+                    width="178"
+                    height="178"
+                    fill="white"
+                    transform="translate(-22)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div className="bg-[#DD3633] flex items-center justify-center">
+            <p className="text-white font-medium text-xl tracking-[6px]">
+              DANZA DE MOSCÚ
+            </p>
+          </div>
+          <div className="bg-black p-4 text-white text-xl uppercase">
+            <p className="font-bold">Los miércoles 23 y 24 de junio</p>
+            <p>TEATRO CD MX</p>
+            <p className="font-bold">$2,500</p>
+          </div>
+        </div>
+      </div>
+
+      <div className=" w-full h-full col-span-2 relative flex flex-col justify-end">
+        <img
+          alt=""
+          src={IMAGE_6}
+          className="absolute inset-0 w-full h-full object-cover z-[-1]"
+        />
+
+        <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
+          <div className="bg-[#0376B9] text-[#64ADEC] row-span-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="99"
+              height="172"
+              viewBox="0 0 99 172"
+              fill="none"
+            >
+              <g clipPath="url(#clip0_851_7869)">
+                <path
+                  d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
+                  fill="currentColor"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_851_7869">
+                  <rect
+                    width="178"
+                    height="178"
+                    fill="white"
+                    transform="translate(-22)"
+                  />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <div className="bg-[#64ADEC] flex items-center pl-2">
+            <p className="text-white font-medium text-xl tracking-[6px]">
+              ÓPERA EN CASA
+            </p>
+          </div>
+          <div className="bg-black p-4 text-white text-xl uppercase">
+            <p className="font-bold">Los miércoles 23 y 24 de junio</p>
+            <p>TEATRO CD MX</p>
+            <p className="font-bold">$2,500</p>
+          </div>
+        </div>
+      </div> */}
     </div>
   )
 }
@@ -199,194 +473,7 @@ const HomePage = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-3 gap-x-[22px] gap-y-5 auto-rows-[minmax(0px,_442px)]">
-          <div className="w-full h-full col-span-2 relative flex flex-col justify-end">
-            <img
-              alt=""
-              src={IMAGE_3}
-              className="absolute inset-0 w-full h-full object-cover z-[-1]"
-            />
-
-            <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
-              <div className="bg-[#A00603] text-[#DD2926] row-span-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="99"
-                  height="172"
-                  viewBox="0 0 99 172"
-                  fill="none"
-                >
-                  <g clipPath="url(#clip0_851_7869)">
-                    <path
-                      d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_851_7869">
-                      <rect
-                        width="178"
-                        height="178"
-                        fill="white"
-                        transform="translate(-22)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <div className="bg-[#CD1815] flex items-center pl-2">
-                <p className="text-white font-medium text-xl tracking-[6px]">
-                  DANZA CONTEMPORÁNEA
-                </p>
-              </div>
-              <div className="bg-black p-4 text-white text-xl uppercase">
-                <p className="font-bold">Los miércoles 23 y 24 de junio</p>
-                <p>TEATRO CD MX</p>
-                <p className="font-bold">$2,500</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full h-full relative flex flex-col justify-end">
-            <img
-              alt=""
-              src={IMAGE_4}
-              className="absolute inset-0 w-full h-full object-cover z-[-1]"
-            />
-
-            <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
-              <div className="bg-[#BCD8D5] text-[#8AA09F] row-span-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="99"
-                  height="172"
-                  viewBox="0 0 99 172"
-                  fill="none"
-                >
-                  <g clipPath="url(#clip0_851_7869)">
-                    <path
-                      d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_851_7869">
-                      <rect
-                        width="178"
-                        height="178"
-                        fill="white"
-                        transform="translate(-22)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <div className="bg-[#BCD8D5] flex items-center justify-center">
-                <p className="font-medium text-xl tracking-[6px]">
-                  VIAJE A ROMA
-                </p>
-              </div>
-              <div className="bg-black p-4 text-white text-xl uppercase">
-                <p className="font-bold">Los miércoles 23 y 24 de junio</p>
-                <p>TEATRO CD MX</p>
-                <p className="font-bold">$2,500</p>
-              </div>
-            </div>
-          </div>
-
-          <div className=" w-full h-full relative flex flex-col justify-end">
-            <img
-              alt=""
-              src={IMAGE_5}
-              className="absolute inset-0 w-full h-full object-cover z-[-1]"
-            />
-
-            <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
-              <div className="bg-[#DD3633] text-[#B9001D] row-span-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="99"
-                  height="172"
-                  viewBox="0 0 99 172"
-                  fill="none"
-                >
-                  <g clipPath="url(#clip0_851_7869)">
-                    <path
-                      d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_851_7869">
-                      <rect
-                        width="178"
-                        height="178"
-                        fill="white"
-                        transform="translate(-22)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <div className="bg-[#DD3633] flex items-center justify-center">
-                <p className="text-white font-medium text-xl tracking-[6px]">
-                  DANZA DE MOSCÚ
-                </p>
-              </div>
-              <div className="bg-black p-4 text-white text-xl uppercase">
-                <p className="font-bold">Los miércoles 23 y 24 de junio</p>
-                <p>TEATRO CD MX</p>
-                <p className="font-bold">$2,500</p>
-              </div>
-            </div>
-          </div>
-          <div className=" w-full h-full col-span-2 relative flex flex-col justify-end">
-            <img
-              alt=""
-              src={IMAGE_6}
-              className="absolute inset-0 w-full h-full object-cover z-[-1]"
-            />
-
-            <div className="w-full max-w-[505px] grid grid-cols-[minmax(0px,_99px)_minmax(0px,_1fr)] grid-rows-[minmax(0px,_38px)_minmax(0px,_139px)] gap-1">
-              <div className="bg-[#0376B9] text-[#64ADEC] row-span-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="99"
-                  height="172"
-                  viewBox="0 0 99 172"
-                  fill="none"
-                >
-                  <g clipPath="url(#clip0_851_7869)">
-                    <path
-                      d="M66.4019 42.6009C115.425 42.6009 142.03 63.1594 142.03 104.037C142.03 144.916 115.419 169.909 66.4019 169.909C17.3849 169.909 -9 146.086 -9 104.037C-9 61.9894 17.1461 42.6009 66.4019 42.6009ZM118.461 -8.09082L72.4686 28.3521H40.0232L63.1329 -8.09082H118.461ZM66.4019 134.869C77.8374 134.869 79.4719 121.784 79.4719 104.031C79.4719 89.5498 77.8374 77.6349 66.4019 77.6349C54.9664 77.6349 53.5645 89.5498 53.5645 104.031C53.5645 121.784 54.9664 134.869 66.4019 134.869Z"
-                      fill="currentColor"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_851_7869">
-                      <rect
-                        width="178"
-                        height="178"
-                        fill="white"
-                        transform="translate(-22)"
-                      />
-                    </clipPath>
-                  </defs>
-                </svg>
-              </div>
-              <div className="bg-[#64ADEC] flex items-center pl-2">
-                <p className="text-white font-medium text-xl tracking-[6px]">
-                  ÓPERA EN CASA
-                </p>
-              </div>
-              <div className="bg-black p-4 text-white text-xl uppercase">
-                <p className="font-bold">Los miércoles 23 y 24 de junio</p>
-                <p>TEATRO CD MX</p>
-                <p className="font-bold">$2,500</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <EventSection />
       </div>
 
       <div className="w-full max-w-[1115px] mx-auto mb-[94px]">
@@ -486,7 +573,7 @@ const HomePage = () => {
           </button>
         </div>
 
-        <Events />
+        <PostSection />
       </div>
 
       <Footer />
