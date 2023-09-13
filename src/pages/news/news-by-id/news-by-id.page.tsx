@@ -1,14 +1,57 @@
+import { useParams } from 'react-router-dom'
 import { Facebook, Linkedin, Twitter } from 'lucide-react'
 
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 
-import IMAGE_1 from '@/assets/images/news-by-id/1.png'
-import IMAGE_2 from '@/assets/images/news-by-id/2.png'
-import IMAGE_3 from '@/assets/images/news-by-id/3.png'
 import LOGO_HEADER_BLOG from '@/assets/images/news-by-id/logo-header-blog.png'
+import { useEffect, useState } from 'react'
+import { getPostById } from '@/api/post'
+import { Post } from '@/interface/post'
+import dayjs from 'dayjs'
 
 const NewsByIdPage = () => {
+  const params = useParams()
+  const [post, setPost] = useState<Post | null>(null)
+  const postId = params?.id ? Number(params.id) : null
+
+  const [, setImages] = useState<HTMLImageElement[]>([])
+  const [paragraphs, setParagraphs] = useState<HTMLParagraphElement[]>([])
+
+  useEffect(() => {
+    if (!postId) return
+
+    getPostById(postId)
+      .then((res) => {
+        console.log(res.data)
+
+        const dom = new DOMParser().parseFromString(
+          res.data?.content.rendered,
+          'text/html'
+        )
+
+        const images: HTMLImageElement[] = []
+        const paragraphs: HTMLParagraphElement[] = []
+
+        dom.querySelectorAll('img').forEach((img) => {
+          images.push(img)
+        })
+
+        dom.querySelectorAll('p').forEach((p) => {
+          paragraphs.push(p)
+        })
+
+        setPost(res.data)
+        setImages(images)
+        setParagraphs(paragraphs)
+      })
+      .catch((err) => {
+        console.log('[GET_POST_BY_ID_ERROR]', err)
+      })
+  }, [postId])
+
+  if (!post) return null
+
   return (
     <div>
       <Header color="pink" className="mb-[42px]" />
@@ -30,10 +73,16 @@ const NewsByIdPage = () => {
         <div className="mb-[38px] text-[#664F6E] font-bold flex items-center gap-x-2 uppercase">
           <p>José Noé Mercado</p>
           <p className="text-[#0376B9]">|</p>
-          <p>JUNIO 2023</p>
+          <p>{dayjs(post?.date).format('MMMM YYYY')}</p>
         </div>
 
-        <img alt="" src={IMAGE_1} />
+        <div className="w-full max-w-[1258px] relative h-[396px]">
+          <img
+            alt={post?.yoast_head_json.og_title}
+            src={post?.yoast_head_json.og_image[0].url}
+            className="absolute inset-0 w-full h-full"
+          />
+        </div>
         <div className="flex h-[178px] mb-[180px]">
           <div className="bg-[#994878] pl-4 h-full flex items-center justify-between w-full flex-1 border-b-[16px] border-b-black">
             <div className="text-[32px] leading-[32px] tracking-[6px] uppercase space-y-2">
@@ -48,11 +97,19 @@ const NewsByIdPage = () => {
           </div>
         </div>
 
-        <h3 className="text-4xl text-[#994878] tracking-[10px] mb-[21px]">
-          TÍTULO
-        </h3>
+        {paragraphs.map((p, index) => (
+          <div
+            key={index}
+            className="px-8"
+            dangerouslySetInnerHTML={{ __html: p.innerHTML }}
+          />
+        ))}
 
-        <div className="flex items-center justify-between gap-x-6 mb-[80px]">
+        {/*         <h3 className="text-4xl text-[#994878] tracking-[10px] mb-[21px]">
+          TÍTULO
+        </h3> */}
+
+        {/*         <div className="flex items-center justify-between gap-x-6 mb-[80px]">
           <p className="text-[#999EA1]">
             La documentación videográfica oficial de la ópera en México es casi
             inexistente. No hay un archivo —al menos no uno público— que pueda
@@ -169,7 +226,7 @@ const NewsByIdPage = () => {
               SUSCRIBIRSE
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <Footer />

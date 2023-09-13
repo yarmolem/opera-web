@@ -2,7 +2,7 @@ import { axiosClient } from './client'
 
 import type { EventResponse } from '@/interface/event'
 
-interface GetAllEventProps {
+export interface GetAllEventProps {
   params?: {
     page?: number
     per_page?: number
@@ -10,6 +10,7 @@ interface GetAllEventProps {
     start_date?: string
     end_date?: string
     status?: 'publish'
+    categories?: string
   }
 }
 

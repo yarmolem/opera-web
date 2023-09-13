@@ -111,7 +111,7 @@ const NewsPage = () => {
                     NOTICIA DE HOY
                   </p>
 
-                  <div className="h-[464px] w-full relative bg-red-100 flex flex-col justify-end items-start">
+                  <div className="h-[464px] w-full relative flex flex-col justify-end items-start">
                     <div className="absolute inset-0 w-full h-full from-black to-transparent bg-gradient-to-t z-10" />
                     <img
                       alt={post.yoast_head_json.og_title}
@@ -125,9 +125,12 @@ const NewsPage = () => {
                       </div>
 
                       <div className="w-full max-w-md">
-                        <p className="text-[32px] font-bold tracking-[5px] text-white uppercase leading-[38px]">
+                        <Link
+                          to={{ pathname: `/news/${post?.id}` }}
+                          className="text-[32px] font-bold tracking-[5px] text-white uppercase leading-[38px] hover:underline"
+                        >
                           {post.title.rendered}
-                        </p>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -142,7 +145,7 @@ const NewsPage = () => {
                     popular
                   </p>
 
-                  <div className="h-[464px] w-full relative bg-red-100 flex flex-col justify-end items-start">
+                  <div className="h-[464px] w-full relative flex flex-col justify-end items-start">
                     <div className="absolute inset-0 w-full h-full from-black to-transparent bg-gradient-to-t z-10" />
                     <img
                       alt={post.yoast_head_json.og_title}
@@ -156,9 +159,12 @@ const NewsPage = () => {
                       </div>
 
                       <div className="w-full max-w-md">
-                        <p className="text-[16px] font-bold tracking-[5px] text-white uppercase leading-[19px]">
+                        <Link
+                          to={{ pathname: `/news/${post?.id}` }}
+                          className="text-[16px] font-bold tracking-[5px] text-white uppercase leading-[19px] hover:underline"
+                        >
                           {post.title.rendered}
-                        </p>
+                        </Link>
                       </div>
                     </div>
                   </div>

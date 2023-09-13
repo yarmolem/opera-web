@@ -49,7 +49,7 @@ const Header = (props: Props) => {
       <nav className="h-[43px] w-full bg-black">
         <ul className="flex items-center h-full justify-center gap-x-[18px] text-white">
           <li>
-            <Link to="/">EVENTOS</Link>
+            <Link to="/events">EVENTOS</Link>
           </li>
           <li>
             <Link to="/memberships">MEMBRESÍAS</Link>
