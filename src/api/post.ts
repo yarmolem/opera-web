@@ -12,5 +12,5 @@ interface GetAllPostProps {
 }
 
 export const getAllPost = async ({ params }: GetAllPostProps = {}) => {
-  return await axiosClient.get<Post[]>('/posts', { params })
+  return await axiosClient.get<Post[]>('/wp/v2/posts', { params })
 }

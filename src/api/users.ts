@@ -11,9 +11,9 @@ interface GetAllUserProps {
 }
 
 export const getAllUsers = async ({ params }: GetAllUserProps = {}) => {
-  return await axiosClient.get<User[]>('/users', { params })
+  return await axiosClient.get<User[]>('/wp/v2/users', { params })
 }
 
 export const getUserById = async (id: number) => {
-  return await axiosClient.get<User | null>(`/users/${id}`)
+  return await axiosClient.get<User | null>(`/wp/v2/users/${id}`)
 }

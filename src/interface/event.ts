@@ -1,172 +1,211 @@
+export interface EventResponse {
+  events: Event[]
+  rest_url: string
+  total: number
+  total_pages: number
+}
+
 export interface Event {
   id: number
-  count: number
+  global_id: string
+  global_id_lineage: string[]
+  author: string
+  status: Status
+  date: Date
+  date_utc: Date
+  modified: Date
+  modified_utc: Date
+  url: string
+  rest_url: string
+  title: string
   description: string
-  link: string
+  excerpt: string
+  slug: string
+  image: Image
+  all_day: boolean
+  start_date: Date
+  start_date_details: DateDetails
+  end_date: Date
+  end_date_details: DateDetails
+  utc_start_date: Date
+  utc_start_date_details: DateDetails
+  utc_end_date: Date
+  utc_end_date_details: DateDetails
+  timezone: Timezone
+  timezone_abbr: TimezoneAbbr
+  cost: string
+  cost_details: CostDetails
+  website: string
+  show_map: boolean
+  show_map_link: boolean
+  hide_from_listings: boolean
+  sticky: boolean
+  featured: boolean
+  categories: Category[]
+  tags: number[]
+  venue: VenueClass
+  organizer: Organizer[]
+}
+
+export interface Category {
   name: string
   slug: string
+  term_group: number
+  term_taxonomy_id: number
   taxonomy: Taxonomy
+  description: string
   parent: number
-  meta: number[]
-  yoast_head: string
-  yoast_head_json: YoastHeadJSON
-  _links: Links
+  count: number
+  filter: Filter
+  id: number
+  urls: Urls
 }
 
-export interface Links {
-  self: About[]
-  collection: About[]
-  about: About[]
-  'wp:post_type': About[]
-  curies: Cury[]
-}
-
-export interface About {
-  href: string
-}
-
-export interface Cury {
-  name: Name
-  href: Href
-  templated: boolean
-}
-
-export enum Href {
-  HTTPSAPIWOrgRel = 'https://api.w.org/{rel}'
-}
-
-export enum Name {
-  Wp = 'wp'
+export enum Filter {
+  Raw = 'raw'
 }
 
 export enum Taxonomy {
   TribeEventsCat = 'tribe_events_cat'
 }
 
-export interface YoastHeadJSON {
-  title: string
-  robots: Robots
-  canonical: string
-  og_locale: OgLocale
-  og_type: OgType
-  og_title: string
-  og_url: string
-  og_site_name: OgSiteName
-  twitter_card: TwitterCard
-  schema: Schema
+export interface Urls {
+  self: string
+  collection: string
 }
 
-export enum OgLocale {
-  EsES = 'es_ES'
+export interface CostDetails {
+  currency_symbol: CurrencySymbol
+  currency_code: string
+  currency_position: CurrencyPosition
+  values: string[]
 }
 
-export enum OgSiteName {
-  ProÓperaAC = 'Pro Ópera AC'
+export enum CurrencyPosition {
+  Prefix = 'prefix'
 }
 
-export enum OgType {
-  Article = 'article'
+export enum CurrencySymbol {
+  CurrencySymbol = '',
+  Empty = '$'
 }
 
-export interface Robots {
-  index: Index
-  follow: Follow
-  'max-snippet': MaxSnippet
-  'max-image-preview': MaxImagePreview
-  'max-video-preview': MaxVideoPreview
+export interface DateDetails {
+  year: string
+  month: string
+  day: string
+  hour: string
+  minutes: string
+  seconds: string
 }
 
-export enum Follow {
-  Follow = 'follow'
+export interface Image {
+  url: string
+  id: number
+  extension: Extension
+  width: number
+  height: number
+  sizes: Sizes
 }
 
-export enum Index {
-  Index = 'index'
+export enum Extension {
+  PNG = 'png'
 }
 
-export enum MaxImagePreview {
-  MaxImagePreviewLarge = 'max-image-preview:large'
+export interface Sizes {
+  medium: CmsmastersBlogMasonryThumb
+  thumbnail: CmsmastersBlogMasonryThumb
+  'cmsmasters-small-thumb': CmsmastersBlogMasonryThumb
+  'cmsmasters-square-thumb': CmsmastersBlogMasonryThumb
+  'cmsmasters-blog-masonry-thumb': CmsmastersBlogMasonryThumb
+  woocommerce_thumbnail: CmsmastersBlogMasonryThumb
+  woocommerce_gallery_thumbnail: CmsmastersBlogMasonryThumb
+  shop_catalog: CmsmastersBlogMasonryThumb
+  shop_thumbnail: CmsmastersBlogMasonryThumb
 }
 
-export enum MaxSnippet {
-  MaxSnippet1 = 'max-snippet:-1'
+export interface CmsmastersBlogMasonryThumb {
+  width: number
+  height: number
+  'mime-type': MIMEType
+  url: string
+  uncropped?: boolean
 }
 
-export enum MaxVideoPreview {
-  MaxVideoPreview1 = 'max-video-preview:-1'
+export enum MIMEType {
+  ImagePNG = 'image/png'
 }
 
-export interface Schema {
-  '@context': string
-  '@graph': Graph[]
+export interface Organizer {
+  id: number
+  author: string
+  status: Status
+  date: Date
+  date_utc: Date
+  modified: Date
+  modified_utc: Date
+  url: string
+  organizer: string
+  slug: string
+  phone?: Phone
+  website?: string
+  email?: string
+  global_id: string
+  global_id_lineage: string[]
 }
 
-export interface Graph {
-  '@type': GraphType
-  '@id': string
-  url?: string
-  name?: string
-  description?: OgSiteName
-  potentialAction?: PotentialAction[]
-  inLanguage?: InLanguage
-  isPartOf?: Breadcrumb
-  breadcrumb?: Breadcrumb
-  itemListElement?: ItemListElement[]
+export enum Phone {
+  The4156881482 = '415 688 1482',
+  The5543470283Y5555549091 = '(55) 4347-0283 y (55) 5554-9091',
+  The5552544826 = '55-5254.4826'
 }
 
-export enum GraphType {
-  BreadcrumbList = 'BreadcrumbList',
-  CollectionPage = 'CollectionPage',
-  WebSite = 'WebSite'
+export enum Status {
+  Publish = 'publish'
 }
 
-export interface Breadcrumb {
-  '@id': string
+export enum Timezone {
+  AmericaMexicoCity = 'America/Mexico_City',
+  UTC2 = 'UTC+2'
 }
 
-export enum InLanguage {
-  Es = 'es'
+export enum TimezoneAbbr {
+  Cdt = 'CDT',
+  Cst = 'CST',
+  UTC2 = 'UTC+2'
 }
 
-export interface ItemListElement {
-  '@type': ItemListElementType
-  position: number
-  name: string
-  item?: string
+export interface VenueClass {
+  id: number
+  author: string
+  status: Status
+  date: Date
+  date_utc: Date
+  modified: Date
+  modified_utc: Date
+  url: string
+  venue: string
+  slug: string
+  address: string
+  city: string
+  country: Country
+  province?: Province
+  stateprovince?: Province
+  show_map: boolean
+  show_map_link: boolean
+  global_id: string
+  global_id_lineage: string[]
+  zip?: string
+  phone?: string
+  website?: string
 }
 
-export enum ItemListElementType {
-  ListItem = 'ListItem'
+export enum Country {
+  México = 'México'
 }
 
-export interface PotentialAction {
-  '@type': PotentialActionType
-  target: string[] | TargetClass
-  'query-input'?: QueryInput
-}
-
-export enum PotentialActionType {
-  ReadAction = 'ReadAction',
-  SearchAction = 'SearchAction'
-}
-
-export enum QueryInput {
-  RequiredNameSearchTermString = 'required name=search_term_string'
-}
-
-export interface TargetClass {
-  '@type': TargetType
-  urlTemplate: URLTemplate
-}
-
-export enum TargetType {
-  EntryPoint = 'EntryPoint'
-}
-
-export enum URLTemplate {
-  HTTPSProoperaOrgMXSSearchTermString = 'https://proopera.org.mx/?s={search_term_string}'
-}
-
-export enum TwitterCard {
-  SummaryLargeImage = 'summary_large_image'
+export enum Province {
+  Cdmx = 'CDMX',
+  Guanajuato = 'Guanajuato',
+  ProvinceGuanajuato = 'Guanajuato,'
 }
